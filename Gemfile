@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-# Declare your gem's dependencies in active_admin-state_machine.gemspec.
+# Declare your gem's dependencies in active_admin_workflow.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
 # development dependencies will be added by default to the :development group.
 gemspec
@@ -14,14 +14,17 @@ gemspec
 # gem 'debugger'
 
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
-  gem 'jquery-rails', '~> 2.3.0'
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
+  gem 'jquery-rails'
 end
 
 group :development, :test do
   gem 'pry'
 end
 
+gem 'rails'
+gem "sqlite3", '~> 1.3.6'
 gem 'cancan'
+gem 'workflow-activerecord', '>= 4.1', '< 6.0'

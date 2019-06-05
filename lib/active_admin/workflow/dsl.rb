@@ -1,9 +1,9 @@
 module ActiveAdmin
-  module StateMachine
+  module Workflow
     module DSL
 
       #
-      # Easily tie into a state_machine action
+      # Easily tie into a workflow action
       #
       # @param [Symbol] state machine event, ie: :publish
       # @param [Hash] options

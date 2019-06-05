@@ -1,13 +1,20 @@
 script: xvfb-run bundle exec rspec spec
 rvm:
-  - 1.9.3
-  - 2.0.0
+  - 2.6.3
+addons:
+  chrome: stable
 before_install:
   - gem update --system
   - gem --version
   - gem install bundler
 before_script:
-  - psql -c 'create database aa_state_machine_test;' -U postgres
+  - psql -c 'create database aa_workflow_test;' -U postgres
   - cp spec/dummy/config/database.travis.yml spec/dummy/config/database.yml
   - RAILS_ENV=test cd spec/dummy && bundle exec rake db:setup
   - cd ../../
+env:
+  - RAILS_VERSION=6.0.0.rc1
+  - RAILS_VERSION=5.2.3
+  - RAILS_VERSION=5.1.7
+  - RAILS_VERSION=5.0.7.2
+  - RAILS_VERSION=4.2.11.1

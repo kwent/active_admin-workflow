@@ -1,5 +1,5 @@
 class Post < ActiveRecord::Base
-  attr_accessible :body, :status, :title
+  include WorkflowActiverecord
 
   belongs_to :category
 
@@ -11,21 +11,18 @@ class Post < ActiveRecord::Base
   PUBLISHED = 'published'
   ARCHIVED = 'archived'
 
-  state_machine :status, initial: DRAFT do
-    event :peer_review do
-      transition DRAFT => REVIEWED
+  workflow do
+    state DRAFT do
+      event :peer_review, transitions_to: REVIEWED
     end
-
-    event :publish do
-      transition REVIEWED => PUBLISHED
+    state REVIEWED do
+      event :publish, transitions_to: PUBLISHED
     end
-
-    event :archive do
-      transition any - ARCHIVED => ARCHIVED
+    state PUBLISHED do
+      event :archive, transitions_to: ARCHIVED
     end
-
-    event :reopen do
-      transition any - DRAFT => DRAFT
+    state ARCHIVED do
+      event :reopen, transitions_to: DRAFT
     end
   end
 end

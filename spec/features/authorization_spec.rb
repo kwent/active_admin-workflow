@@ -10,7 +10,7 @@ feature "Authorized Access" do
 
   scenario 'should not show button if not authorized' do
     login_and_navigate_to_post user, post
-    
+
     has_no_action_item "Peer Review"
   end
 
@@ -19,5 +19,5 @@ feature "Authorized Access" do
 
     has_action_item "Peer Review"
   end
-  
+
 end

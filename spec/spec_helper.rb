@@ -10,16 +10,34 @@ ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
 require 'shoulda-matchers'
 require 'capybara/rails'
 require 'capybara/rspec'
-require 'capybara/webkit'
+require 'selenium-webdriver'
+require 'webdrivers'
 require 'database_cleaner'
-require 'factory_girl_rails'
+require 'factory_bot'
 
-Capybara.default_selector = :css
-Capybara.javascript_driver = :webkit
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+Capybara.register_driver :headless_chrome do |app|
+  caps = Selenium::WebDriver::Remote::Capabilities.chrome(loggingPrefs: { browser: 'ALL' })
+  opts = Selenium::WebDriver::Chrome::Options.new
+
+  chrome_args = %w[--headless --window-size=1920,1080 --no-sandbox --disable-dev-shm-usage --enable-features=NetworkService,NetworkServiceInProcess]
+  chrome_args.each { |arg| opts.add_argument(arg) }
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: opts, desired_capabilities: caps)
+end
+
+Capybara.configure do |config|
+  # change this to :chrome to observe tests in a real browser
+  config.default_selector = :css
+  config.javascript_driver = :headless_chrome
+end
+
+
 Rails.backtrace_cleaner.remove_silencers!
 
 # Load support files
@@ -40,7 +58,11 @@ RSpec.configure do |config|
   config.order = 'random'
 
   config.include Warden::Test::Helpers, type: :feature
-  config.include FactoryGirl::Syntax::Methods # Defines #create as FactoryGirl.create
+  config.include FactoryBot::Syntax::Methods # Defines #create as FactoryBot.create
+
+  config.before :all do
+     FactoryBot.reload
+  end
 
   config.before :each do
     DatabaseCleaner.clean_with :truncation

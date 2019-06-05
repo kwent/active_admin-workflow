@@ -6,46 +6,42 @@ feature "JS Confirmations" do
 
   given(:category) { create(:category, num_posts: 0) }
   given(:post) { create(:post, :reviewed, category: category) }
+  given(:published_post) { create(:post, :published, category: category) }
 
   scenario 'accepting JS confirmation performs action', js: true do
     login_and_navigate_to_post admin, post
 
-    page.driver.browser.accept_js_confirms
-    click_link "Publish Post"
+    message = accept_prompt do
+      click_link("Publish Post")
+    end
 
-    page.driver.confirm_messages.should include "Do you want to publish now?"
-    page.should have_css(".flash.flash_notice", text: "Post successfully published")
+    expect(message).to eq("Do you want to publish now?")
+    expect(page).to have_css(".flash.flash_notice", text: "Post successfully published")
 
-    post_should_have_status "published"
+    post_expect_have_workflow_state "published"
   end
 
-  scenario 'rejecting JS confirmatino skips action', js: true do
+  scenario 'rejecting JS confirmation skips action', js: true do
     login_and_navigate_to_post admin, post
 
-    page.driver.browser.reject_js_confirms
-    click_link "Publish Post"
+    message = dismiss_prompt do
+      click_link("Publish Post")
+    end
 
-    page.driver.confirm_messages.should include "Do you want to publish now?"
-    page.should_not have_css(".flash.flash_notice", text: "Post successfully published")
+    expect(message).to eq("Do you want to publish now?")
+    expect(page).to_not have_css(".flash.flash_notice", text: "Post successfully published")
 
-    post_should_have_status "reviewed"
-  end
-
-  scenario 'JS prompt has default transation', js: true do
-    login_and_navigate_to_post admin, post
-
-    page.driver.browser.accept_js_confirms
-    click_link "Reopen"
-
-    page.driver.confirm_messages.should include "Are you sure you want to reopen?"
+    post_expect_have_workflow_state "reviewed"
   end
 
   scenario 'JS prompt uses Proc for message', js: true do
-    login_and_navigate_to_post admin, post
+    login_and_navigate_to_post admin, published_post
 
-    page.driver.browser.accept_js_confirms
-    click_link "Archive"
+    message = accept_prompt do
+      click_link("Archive")
+    end
 
-    page.driver.confirm_messages.should include "Do you want to archive?"
+    expect(message).to eq("Do you want to archive?")
+    post_expect_have_workflow_state "archived"
   end
 end

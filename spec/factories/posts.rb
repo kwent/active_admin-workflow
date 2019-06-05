@@ -1,11 +1,19 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :post do
     sequence(:title) { |n| "Post #{n}" }
-    body "lorem ipsum"
+    body { "lorem ipsum" }
     category
 
     trait :reviewed do
-      status Post::REVIEWED
+      workflow_state { Post::REVIEWED }
+    end
+
+    trait :published do
+      workflow_state { Post::PUBLISHED }
+    end
+
+    trait :archived do
+      workflow_state { Post::ARCHIVED }
     end
   end
 end
