@@ -1,5 +1,6 @@
 # ActiveAdmin-Workflow
 
+[![Version      ](https://badge.fury.io/rb/active_admin_workflow.svg)](https://badge.fury.io/rb/active_admin_workflow)
 [![Build Status](https://travis-ci.org/kwent/active_admin_workflow.svg?branch=master)](https://travis-ci.org/kwent/active_admin_workflow)
 
 This gem provides an easy integration between the awesome [workflow](https://github.com/geekq/workflow) and [active_admin](https://github.com/gregbell/active_admin) gems.
