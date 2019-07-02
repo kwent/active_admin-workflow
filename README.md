@@ -1,7 +1,7 @@
 # ActiveAdmin-Workflow
 
-[![Version      ](https://badge.fury.io/rb/active_admin_workflow.svg)](https://badge.fury.io/rb/active_admin_workflow)
-[![Build Status](https://travis-ci.org/kwent/active_admin_workflow.svg?branch=master)](https://travis-ci.org/kwent/active_admin_workflow)
+[![Version      ](https://badge.fury.io/rb/active_admin-workflow.svg)](https://badge.fury.io/rb/active_admin-workflow)
+[![Build Status](https://travis-ci.org/kwent/active_admin-workflow.svg?branch=master)](https://travis-ci.org/kwent/active_admin-workflow)
 
 This gem provides an easy integration between the awesome [workflow](https://github.com/geekq/workflow) and [active_admin](https://github.com/gregbell/active_admin) gems.
 
@@ -21,7 +21,7 @@ This gem provides you with a DSL extension to ActiveAdmin that allows you to eas
 This gem requires both `active_admin` and `workflow`.  Add the gem to your Gemfile to get started and bundle.
 
 ```ruby
-gem 'active_admin_workflow'
+gem 'active_admin-workflow'
 ```
 
 ## Usage

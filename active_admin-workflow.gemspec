@@ -5,11 +5,11 @@ require "active_admin/workflow/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "active_admin_workflow"
+  s.name        = "active_admin-workflow"
   s.version     = ActiveAdmin::Workflow::VERSION
   s.authors     = ["Quentin Rousseau"]
   s.email       = ["contact@quent.in"]
-  s.homepage    = "https://github.com/kwent/active_admin_workflow"
+  s.homepage    = "https://github.com/kwent/active_admin-workflow"
   s.summary     = "Provides easy DSL integration between ActiveAdmin & workflow"
   s.description = "Provides easy DSL integration between ActiveAdmin & workflow"
   s.license     = "MIT"

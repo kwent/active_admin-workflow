@@ -9,7 +9,6 @@ require "sprockets/railtie"
 require "devise"
 
 Bundler.require(*Rails.groups)
-require "active_admin/workflow"
 
 module Dummy
   class Application < Rails::Application
