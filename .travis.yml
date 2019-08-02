@@ -13,7 +13,7 @@ before_script:
   - RAILS_ENV=test cd spec/dummy && bundle exec rake db:setup
   - cd ../../
 env:
-  - RAILS_VERSION=6.0.0.rc1
+  - RAILS_VERSION=6.0.0.rc2
   - RAILS_VERSION=5.2.3
   - RAILS_VERSION=5.1.7
   - RAILS_VERSION=5.0.7.2
