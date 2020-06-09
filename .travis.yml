@@ -3,6 +3,8 @@ rvm:
   - 2.6.3
 addons:
   chrome: stable
+services:
+  - postgresql
 before_install:
   - gem update --system
   - gem --version
